@@ -1,5 +1,6 @@
 
 import json
+import os
 
 import tornado.web
 import tornado.ioloop
@@ -66,6 +67,8 @@ class main_handle(tornado.web.RequestHandler) :
                 
                 check_state = request_post('/login',post_data);
                 
+                alert(check_state);
+                
                 return check_state;
             }
             
@@ -92,6 +95,7 @@ def start_server(local_port) :
         ('/valid_captcha',tick.valid_captcha_handle) ,
         ('/login',login_handle) ,
         ('/',main_handle) ,
+        ('/captcha_picture/(.*)',tornado.web.StaticFileHandler,{'path':'captcha_picture'})
     ]
     http_server = tornado.web.Application(handlers = handler)
     
