@@ -15,10 +15,9 @@ class login_handle(tornado.web.RequestHandler) :
         valid_state = tick.captcha.check_tick(tick_id)
         
         if valid_state :
-            username = self.get_argument('username')
-            password = self.get_argument('password')
+            guest_code = self.get_argument('guest_code')
             
-            if 'root' == username and '2140' == password :
+            if '514230' == guest_code :
                 result = 'Pass Success'
             else :
                 result = 'Pass Error'
@@ -55,13 +54,9 @@ class main_handle(tornado.web.RequestHandler) :
             %s
             
             function submit() {
-                username_text = document.getElementById('username');
-                password_text = document.getElementById('password');
-                username = username_text.value;
-                password = password_text.value;
+                guest_code = document.getElementById('guest_code');
                 post_data = {
-                    'username' : username ,
-                    'password' : password ,
+                    'guest_code' : guest_code.value ,
                     'tick'     : pass_tick
                 }
                 
@@ -75,9 +70,10 @@ class main_handle(tornado.web.RequestHandler) :
             </script>
         
             <body>
-                username: <input id="username" type="text" value="" /> <br/>
-                password: <input id="password" type="text" value="" /> <br/>
+                Guest Code: <input id="guest_code" type="text" value="" />
+                <br/>
                 %s
+                <br/>
                 <input type="button" value="submit" onclick="submit()" />
             </body>
         
