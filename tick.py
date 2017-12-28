@@ -249,21 +249,16 @@ def get_captcha_javascript_code() :
             };
 
             tick = request_post('/valid_captcha',post_data);
-
-            console.log(post_data);
-            console.log(tick);
-
+            
             return tick['tick'];
         }
         
         pass_tick = '';
         
         function captcha_click() {
-            div_captcha = document.getElementById('captcha');
-            p_output = document.getElementById('output');
-            p_output.text = 'Validing';
             pass_tick = valid_captcha();
-            p_output.text = 'Passing';
+            img_captcha = document.getElementById('captcha');
+            img_captcha.src = 'captcha_picture/bg_color.png';
         }
         
     '''
@@ -272,8 +267,8 @@ def get_captcha_javascript_code() :
 
 def get_captcha_html_code() :
     html = '''
-        <div id='captcha' width='60' height='20' onclick='captcha_click();' >
-            <p id='output'>Click For Valid</p>
+        <div>
+            <img id='captcha' width='250' height='120' onclick='captcha_click();' src='captcha_picture/loading.gif'></img>
         </div>
     '''
     
