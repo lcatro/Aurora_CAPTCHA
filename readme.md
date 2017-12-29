@@ -97,22 +97,28 @@
 
   导入验证码模块和验证码UI 还在设计中,后面再更新
   
-  当验证码计算完成并且获取到Tick2 时,会把Tick2 保存在全局变量`pass_tick` 中,在接下来和后端的校验中直接把Tick2 上传到服务器即可
+  当验证码计算完成并且获取到Tick2 时,会把Tick2 保存在全局变量`pass_tick` 中,在接下来和后端的校验中直接把Tick2 上传到服务器即可(Tick2 使用完毕之后会立即释放)
   
   示例代码:
   
 ```javascript
 
     function submit() {
+        if (undefined == window.pass_tick) {  //  判断pass_tick 是否计算完成
+            alert('Please Click CAPTCHA ..');
+
+            return 'No Click Captcha';
+        }
+
         guest_code = document.getElementById('guest_code');
         post_data = {
             'guest_code' : guest_code.value ,
-            'tick'       : pass_tick  //  直接读取全局变量pass_tick 获取Tick2
+            'tick'       : window.pass_tick  //  直接读取全局变量pass_tick 获取Tick2
         }
 
         check_state = request_post('/login',post_data);
 
-        alert(check_state);
+        alert(check_state['status']);
 
         return check_state;
     }
