@@ -27,7 +27,6 @@
 
     pow.py    工作量证明生成与验证逻辑
     tick.py   验证码Tick 查询逻辑
-
 ```
   
   验证码的使用逻辑封装在`tick.py` 里,只需要`import tick` 即可使用.首先在tornado 里注册验证码需要用到的handle 
@@ -36,7 +35,6 @@
 
     class get_captcha_handle()     获取验证码
     class valid_captcha_handle()   校验验证码
-  
 ```
   
   示例代码:
@@ -48,7 +46,6 @@
         ('/valid_captcha',tick.valid_captcha_handle)
     ]
     http_server = tornado.web.Application(handlers = handler)
-  
 ```
   
   至此,后端已经完成验证码模块的导入,我们还需要做的最后一件事是对用户上传的Tick2 进行验证,验证的接口在`tick.py`
@@ -60,7 +57,6 @@
     #  省略多余代码
 
     tick.captcha.check_tick(tick_id)    #  只需要传递tick2 到check_tick() 函数即可得到验证码校验结果
-
 ```
   
   示例代码:
@@ -86,7 +82,6 @@
             self.write(json.dumps({
                 'status' : result
             }))
-
 ```
   
   
@@ -113,7 +108,6 @@
 
         return check_state;
     }
-
 ```
   
 
@@ -140,7 +134,6 @@
         end_time = time.time()
 
         return end_time - start_time,calcute
-        
 ```
   
   
