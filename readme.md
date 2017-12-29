@@ -8,7 +8,7 @@
 
   下图是极光验证码的工作原理,注意Tick1 和Tick2 的区别
   
-  ![](picture\captcha_logic.png)
+  ![](picture/captcha_logic.png)
   
   1.首先,浏览器加载到验证码,向服务器请求数据`/get_captcha` <br/>
   2.接下来,服务器随机生成工作量计算数据和Tick1,Tick1 的意义在于给工作任务定义一个唯一ID <br/>
