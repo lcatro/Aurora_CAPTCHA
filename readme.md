@@ -48,8 +48,10 @@
 ```python
 
     handler = [
-        ('/get_captcha',captcha.get_captcha_handle) ,
-        ('/valid_captcha',captcha.valid_captcha_handle)
+        ('/get_captcha',captcha.get_captcha_handle) ,  #  极光验证码CGI 
+        ('/valid_captcha',captcha.valid_captcha_handle) ,
+        ('/captcha/(.*)',tornado.web.StaticFileHandler,{'path':'captcha'}) ,  #  极光验证码静态文件
+        ('/captcha_picture/(.*)',tornado.web.StaticFileHandler,{'path':'captcha_picture'}) ,
     ]
     http_server = tornado.web.Application(handlers = handler)
 ```
@@ -204,8 +206,7 @@
   
   屏幕面前的你已经知道,这样是存在问题的,当黑客找到一条符合判断的hash 之后,`valid_hash()` 返回来的结果一定是True ,也就绕过了hash 计算,为了计算的结果足够随机,我使用了四要素
   
-```txt
-
+```
     string 字段      初始计算数据
     bit_flag 字段    目的hash 结果中要出现的标识
     bit_offset 字段  指定bit_flag 在hash 结果偏移bit_offset 个字节位置中出现
