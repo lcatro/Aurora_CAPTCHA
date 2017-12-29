@@ -25,7 +25,7 @@ def make_string(length) :
 def random_make_pow() :
     pow_list = []
     
-    for pow_index in range(12) :  #  make 16 pow work ..
+    for pow_index in range(14) :  #  make 14 pow work ..
         random_string = make_string(random_string_length)
         random_bit_flag = make_string(random_bit_flag_length)  #  bit_flag = 2
         random_bit_offset = random.randint(0,random_bit_offset_range)  #  bit_offset = (0,len - bit_flag)
