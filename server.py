@@ -62,7 +62,7 @@ class main_handle(tornado.web.RequestHandler) :
                 
                 check_state = request_post('/login',post_data);
                 
-                alert(check_state);
+                alert(check_state['status']);
                 
                 return check_state;
             }
@@ -100,5 +100,5 @@ def start_server(local_port) :
 
 
 
-start_server(80)
+start_server(30008)
 
