@@ -6,9 +6,22 @@
 
 ### 极光验证码Demo
 
+  极光验证码无需用户输入任何数据,只需要点击图片即可
   
-
-
+  Demo 程序路径是server.py ,运行之后访问地址`http://127.0.0.1/.`,在浏览器会看到这个界面
+  
+  ![](pitcure/demo_start.png)
+  
+  点击图片验证码之后,浏览器会创建线程来执行大量的hash 计算
+  
+  ![](pitcure/demo_click.png)
+  
+  计算结果完毕之后,提示验证通过
+  
+  ![](pitcure/demo_end.png)
+  
+  
+---
   
 ### 如何使用极光验证码(后端)
   
@@ -103,6 +116,7 @@
     }
 ```
   
+---
 
 ### 极光验证码工作原理
 
@@ -128,6 +142,9 @@
   
 ```python
 
+    def sha256(data) :
+        return hashlib.sha256(data).digest()
+    
     def valid(data = 'test',nonce = '000') :
         start_time = time.time()
         data = sha256(data)
