@@ -10,15 +10,15 @@
   
   Demo 程序路径是server.py ,运行之后访问地址`http://127.0.0.1/.`,在浏览器会看到这个界面
   
-  ![](pitcure/demo_start.png)
+  ![](picture/demo_start.png)
   
   点击图片验证码之后,浏览器会创建线程来执行大量的hash 计算
   
-  ![](pitcure/demo_click.png)
+  ![](picture/demo_click.png)
   
   计算结果完毕之后,提示验证通过
   
-  ![](pitcure/demo_end.png)
+  ![](picture/demo_end.png)
   
   
 ---
