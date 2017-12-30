@@ -20,6 +20,9 @@
   
   ![](picture/demo_end.png)
   
+  Gif 演示动画
+  
+  ![](picture/example.gif)
   
 ---
   
