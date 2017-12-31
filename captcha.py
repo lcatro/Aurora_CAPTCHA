@@ -10,13 +10,16 @@ import tornado.ioloop
 import pow
 
 
-class tick_pool :
-    
-    __tick_expire_time = 360  #  360 s = 6 min
+class tick_result :
     
     tick_state_success = 0
     tick_state_error = 1
     tick_state_expire = 2
+    
+
+class tick_pool :
+    
+    __tick_expire_time = 360  #  360 s = 6 min
     
     @staticmethod
     def get_current_time() :
@@ -52,15 +55,15 @@ class tick_pool :
         return random_id , magic
         
     def is_exist_tick(self,tick_id) :
-        result = tick_pool.tick_state_error
+        result = tick_result.tick_state_error
         
         self.lock()
         
         if self.tick.has_key(tick_id) :
             if self.tick[tick_id]['time'] + tick_pool.__tick_expire_time > tick_pool.get_current_time() :
-                result = tick_pool.tick_state_success
+                result = tick_result.tick_state_success
             else :
-                result = tick_pool.tick_state_expire
+                result = tick_result.tick_state_expire
         
         self.unlock()
         
@@ -75,7 +78,7 @@ class tick_pool :
         self.unlock()
         
     def get_tick_magic(self,tick_id) :
-        result = tick_pool.tick_state_error
+        result = tick_result.tick_state_error
         
         self.lock()
         
@@ -83,14 +86,14 @@ class tick_pool :
             if self.tick[tick_id]['time'] + tick_pool.__tick_expire_time > tick_pool.get_current_time() :
                 result = self.tick[tick_id]['magic']
             else :
-                result = tick_pool.tick_state_expire
+                result = tick_result.tick_state_expire
         
         self.unlock()
         
         return result
         
     def get_tick_data(self,tick_id) :
-        result = tick_pool.tick_state_error
+        result = tick_result.tick_state_error
         
         self.lock()
         
@@ -98,7 +101,7 @@ class tick_pool :
             if self.tick[tick_id]['time'] + tick_pool.__tick_expire_time > tick_pool.get_current_time() :
                 result = self.tick[tick_id]['tick_data']
             else :
-                result = tick_pool.tick_state_expire
+                result = tick_result.tick_state_expire
         
         self.unlock()
         
@@ -125,7 +128,7 @@ class captcha_valid :
     def valid_captcha(self,tick_id,magic,pow_list) :
         tick_status = self.tick_pow_list.is_exist_tick(tick_id)
         
-        if not tick_pool.tick_state_success == tick_status :
+        if not tick_result.tick_state_success == tick_status :
             return self.tick_valid_state.add_tick(tick_status)
         
         tick_status = self.tick_pow_list.get_tick_magic(tick_id)
@@ -138,14 +141,14 @@ class captcha_valid :
         valid_result = pow.valid_pow(pow_list)
         
         if valid_result :
-            return self.tick_valid_state.add_tick(tick_pool.tick_state_success)
+            return self.tick_valid_state.add_tick(tick_result.tick_state_success)
         
-        return self.tick_valid_state.add_tick(tick_pool.tick_state_error)
+        return self.tick_valid_state.add_tick(tick_result.tick_state_error)
         
     def check_tick(self,tick_id) :
         tick_status = self.tick_valid_state.is_exist_tick(tick_id)
         
-        if not tick_pool.tick_state_success == tick_status :
+        if not tick_result.tick_state_success == tick_status :
             return tick_status
         
         result = self.tick_valid_state.get_tick_data(tick_id)
