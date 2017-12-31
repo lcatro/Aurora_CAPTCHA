@@ -70,6 +70,17 @@
     captcha.captcha.check_tick(tick_id)    #  只需要传递tick2 到check_tick() 函数即可得到验证码校验结果
 ```
   
+  `check_tick()` 将会返回三个值:
+  
+```python
+
+    class tick_result :
+
+        tick_state_success = 0  #  验证成功
+        tick_state_error = 1    #  验证不正确
+        tick_state_expire = 2   #  验证码过时
+```
+  
   示例代码:
   
 ```python
@@ -80,13 +91,15 @@
             tick_id = self.get_argument('tick')  #  获取浏览器提交上来的Tick2
             valid_state = captcha.captcha.check_tick(tick_id)  #  验证Tick2 的结果
 
-            if valid_state :  #  验证通过
+            if captcha.tick_pool.tick_state_success == valid_state :  #  验证码通过
                 guest_code = self.get_argument('guest_code')
 
                 if '514230' == guest_code :
                     result = 'Pass Success'
                 else :
                     result = 'Pass Error'
+            elif captcha.tick_pool.tick_state_expire == valid_state :  #  验证码过期
+                result = 'Captcha Expire ..'
             else :
                 result = 'Captcha Error ..'
 
