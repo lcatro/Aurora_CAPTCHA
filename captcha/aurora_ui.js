@@ -1,9 +1,15 @@
 
+is_captcha_clicked = false;
+
 function captcha_click() {
+    if (is_captcha_clicked)
+        return;
+    
+    is_captcha_clicked = true;
+    
     img_captcha = document.getElementById('captcha');
     
     img_captcha.src = '/captcha_picture/loading.gif?' + Math.random();
-    
     captcha_calculate_worker = new Worker('/captcha/aurora_worker.js');
     
     captcha_calculate_worker.onmessage = function (message) {
