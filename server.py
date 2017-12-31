@@ -14,14 +14,14 @@ class login_handle(tornado.web.RequestHandler) :
         tick_id = self.get_argument('tick')
         valid_state = captcha.captcha.check_tick(tick_id)
         
-        if captcha.tick_pool.tick_state_success == valid_state :
+        if captcha.tick_result.tick_state_success == valid_state :
             guest_code = self.get_argument('guest_code')
             
             if '514230' == guest_code :
                 result = 'Pass Success'
             else :
                 result = 'Pass Error'
-        elif captcha.tick_pool.tick_state_expire == valid_state :
+        elif captcha.tick_result.tick_state_expire == valid_state :
             result = 'Captcha Expire ..'
         else :
             result = 'Captcha Error ..'
