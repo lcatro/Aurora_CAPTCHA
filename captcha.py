@@ -135,10 +135,9 @@ class captcha_valid :
         
         if not magic == tick_status :
             return self.tick_valid_state.add_tick(tick_status)
-            
+        
+        valid_result = pow.valid_pow(pow_list, self.tick_pow_list.get_tick_data(tick_id))    
         self.tick_pow_list.remove_tick(tick_id)
-            
-        valid_result = pow.valid_pow(pow_list)
         
         if valid_result :
             return self.tick_valid_state.add_tick(tick_result.tick_state_success)
