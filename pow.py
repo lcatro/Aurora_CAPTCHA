@@ -40,13 +40,13 @@ def random_make_pow() :
     
     return pow_list
     
-def valid_pow(pow_list) :
+def valid_pow(pow_list, original_pow_list) :
     try :
-        for pow_index in pow_list :
-            result_hash = pow_index['data']
-            bit_flag = pow_index['bit_flag']
-            bit_offset = pow_index['bit_offset']
-            hash_loop = pow_index['hash_loop']
+        for pow_index in range(0,len(pow_list)):
+            result_hash = pow_list[pow_index]['data']
+            bit_flag = original_pow_list[pow_index]['bit_flag']
+            bit_offset = pow_list[pow_index]['bit_offset']
+            hash_loop = pow_list[pow_index]['hash_loop']
 
             for hash_index in range(hash_loop) :
                 result_hash = sha256(result_hash)
@@ -93,7 +93,7 @@ def test_pow() :
             'hash_loop' : hash_loop ,
         })
     
-    print 'valid_pow:',valid_pow(pow_result_list)
+    print 'valid_pow:',valid_pow(pow_result_list, pow_result_list)
     
     end_time = time.time()
     
